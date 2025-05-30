@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>조원 기여도 평가</title>
+  <script defer src="form.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    select, input { margin: 5px; }
+    .member-score { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h2>조원 기여도 평가</h2>
+
+  <label for="teamSelect">조 선택: </label>
+  <select id="teamSelect" onchange="loadMembers()">
+    <option value="">-- 조 선택 --</option>
+  </select>
+
+  <br/>
+
+  <label for="myName">이름: </label>
+  <select id="myName" onchange="loadTeammates()" disabled>
+    <option value="">-- 이름 선택 --</option>
+  </select>
+
+  <div id="scoreInputs"></div>
+  <button onclick="submitScores()">제출</button>
+
+  <script>
+    window.onload = function() {
+      const teamSelect = document.getElementById('teamSelect');
+      Object.keys(teams).forEach(teamName => {
+        const option = document.createElement('option');
+        option.value = teamName;
+        option.textContent = teamName;
+        teamSelect.appendChild(option);
+      });
+    }
+  </script>
+<script>
+function submitScores() {
+  const myName = document.getElementById('myName').value;
+  if (!myName) {
+    alert('이름 선택해');
+    return;
+  }
+
+  const inputs = document.querySelectorAll('#scoreInputs input');
+  let scores = {};
+  for (let input of inputs) {
+    if (!input.value) {
+      alert('모든 점수를 입력해');
+      return;
+    }
+    scores[input.name] = Number(input.value);
+  }
+
+  fetch('복사한_웹앱_URL', {
+    method: 'POST',
+    body: JSON.stringify({ name: myName, scores: scores }),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(res => res.text())
+  .then(text => alert(text))
+  .catch(err => alert('전송 오류: ' + err));
+}
+</script>
+</body>
+</html>
