@@ -159,7 +159,7 @@
 
       fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' }, // 여기 바꿈!
         body: JSON.stringify({ team: team, name: myName, scores: scores })
       })
       .then(res => res.text())
