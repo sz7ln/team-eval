@@ -7,7 +7,6 @@
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       padding: 0;
@@ -21,12 +20,10 @@
       text-align: center;
       background-color: #f8f8f8;
     }
-
     h2 {
       margin-bottom: 30px;
       font-size: 38px;
     }
-
     select, input {
       margin: 16px 0;
       font-size: 26px;
@@ -36,11 +33,9 @@
       border-radius: 10px;
       border: 2px solid #ccc;
     }
-
     .member-score {
       margin-bottom: 22px;
     }
-
     button {
       font-size: 28px;
       padding: 20px 40px;
@@ -52,7 +47,6 @@
       border: none;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-
     button:hover {
       background-color: #4059d0;
     }
@@ -159,7 +153,7 @@
 
       fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' }, // 여기 바꿈!
+        // Content-Type 헤더 뺌 (CORS preflight 회피)
         body: JSON.stringify({ team: team, name: myName, scores: scores })
       })
       .then(res => res.text())
