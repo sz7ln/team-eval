@@ -2,8 +2,8 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>조원 기여도 평가</title>
- <style>
+  <title>환경생태학 조원 기여도 평가</title>
+<style>
   * {
     box-sizing: border-box;
   }
@@ -12,24 +12,24 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    font-size: 26px; /* 🔥 전체 기본 글씨 크기 업 */
+    font-size: 26px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* 수직 중앙 정렬 */
-    height: 100vh;           /* 뷰포트 높이만큼 */
+    justify-content: center;
+    height: 100vh;           
     text-align: center;
     background-color: #f8f8f8;
   }
 
   h2 {
     margin-bottom: 30px;
-    font-size: 38px; /* 제목 더 크고 눈에 띄게 */
+    font-size: 38px; 
   }
 
   select, input {
     margin: 16px 0;
-    font-size: 26px; /* 🔥 입력창 글씨도 업 */
+    font-size: 26px;
     padding: 18px 24px;
     width: 90%;
     max-width: 420px;
@@ -42,7 +42,7 @@
   }
 
   button {
-    font-size: 28px; /* 버튼 글씨 큼직하게 */
+    font-size: 28px; 
     padding: 20px 40px;
     margin-top: 30px;
     cursor: pointer;
@@ -131,7 +131,7 @@
         div.className = "member-score";
         div.innerHTML = `
           <label>${member}: </label>
-          <input type="number" name="${member}" min="0" max="100" required> 점
+          <input type="number" name="${member}" min="0" max="100" required>
         `;
         container.appendChild(div);
       });
