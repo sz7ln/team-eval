@@ -3,11 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <title>조원 기여도 평가</title>
-  <script defer src="form.js"></script>
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    select, input { margin: 5px; }
-    .member-score { margin-bottom: 10px; }
+    body { font-family: sans-serif; padding: 20px; font-size: 1.2rem; }
+    select, input, button {
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      border: 1.5px solid #333;
+    }
+    button {
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .member-score {
+      margin-bottom: 15px;
+    }
+    label {
+      display: inline-block;
+      width: 100px;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -52,6 +74,7 @@
       const selectedTeam = teamSelect.value;
 
       myNameSelect.innerHTML = '<option value="">-- 이름 선택 --</option>';
+      document.getElementById("scoreInputs").innerHTML = "";
 
       if (selectedTeam && teams[selectedTeam]) {
         teams[selectedTeam].forEach(name => {
@@ -64,17 +87,18 @@
       } else {
         myNameSelect.disabled = true;
       }
-
-      document.getElementById("scoreInputs").innerHTML = "";
     }
 
     function loadTeammates() {
       const myName = document.getElementById("myName").value;
       const team = document.getElementById("teamSelect").value;
-      const teammates = teams[team].filter(name => name !== myName);
       const container = document.getElementById("scoreInputs");
 
       container.innerHTML = "";
+
+      if (!myName) return;
+
+      const teammates = teams[team].filter(name => name !== myName);
 
       teammates.forEach(member => {
         const div = document.createElement("div");
@@ -88,9 +112,14 @@
     }
 
     function submitScores() {
+      const team = document.getElementById('teamSelect').value;
       const myName = document.getElementById('myName').value;
+      if (!team) {
+        alert('조를 선택해 주세요');
+        return;
+      }
       if (!myName) {
-        alert('이름을 선택해주세요.');
+        alert('이름을 선택해 주세요');
         return;
       }
 
@@ -98,19 +127,19 @@
       let scores = {};
       for (let input of inputs) {
         if (!input.value) {
-          alert('모든 기여도 점수를 입력해주세요.');
+          alert('모든 조원 기여도 점수를 입력해 주세요');
           return;
         }
         scores[input.name] = Number(input.value);
       }
 
-      fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwaCOZTm4PmRHfhc3rSJdyK_LcMnBxJEB7dyi9dmq9SvTzV-A24PZ0sUdb1nxtTAO22/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbzm6cwQOKABooFoxGBoF3SLkNQNkcauFLPu33H7NJAaQSZn1O_RhuqNnxvCLCP8kn4k/exec', {
         method: 'POST',
-        body: JSON.stringify({ name: myName, scores: scores }),
+        body: JSON.stringify({ team: team, name: myName, scores: scores }),
         headers: { 'Content-Type': 'application/json' }
       })
       .then(res => res.text())
-      .then(text => alert(text))
+      .then(text => alert('제출 완료: ' + text))
       .catch(err => alert('전송 오류: ' + err));
     }
   </script>
