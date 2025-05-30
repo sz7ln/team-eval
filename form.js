@@ -1,11 +1,13 @@
-// 조별 인원 데이터
+//
 const teams = {
-  "1조": ["박서진", "권지민", "홍성현", "김민형", "전요섭"],
-  "2조": ["ㅇㅇㅇ", "ㅁㅁㅁ", "ㄹㄹㄹ", "ㅅㅅㅅ"],
+      "1조": ["박서진", "권지민", "홍성현", "김민형", "전요섭"],
+      "2조": ["ㅂㅂㅂ", "ㅈㅈㅈ", "ㄷㄷㄷ", "ㄱㄱㄱ"],
+      "3조": ["ㅅㅅㅅ", "ㅁㅁㅁ", "ㄴㄴㄴ", "ㅇㅇㅇ"]
+      "4조": ["ㅋㅋㅋ", "ㄹㄹㄹ", "ㅎㅎㅎ", "ㅌㅌㅌ"]
   //
 };
 
-// 조별 멤버 선택시 이름 목록 불러오기
+//
 function loadMembers() {
   const teamSelect = document.getElementById('teamSelect');
   const myNameSelect = document.getElementById('myName');
@@ -29,7 +31,7 @@ function loadMembers() {
   myNameSelect.disabled = false;
 }
 
-// 내 이름 선택 시 조원 이름 불러오기
+//
 function loadTeammates() {
   const myName = document.getElementById('myName').value;
   const selectedTeam = document.getElementById('teamSelect').value;
