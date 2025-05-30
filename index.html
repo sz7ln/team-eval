@@ -1,62 +1,62 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <title>환경생태학 조원 기여도 평가</title>
-<style>
-  * {
-    box-sizing: border-box;
-  }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    font-size: 26px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;           
-    text-align: center;
-    background-color: #f8f8f8;
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      font-size: 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      background-color: #f8f8f8;
+    }
 
-  h2 {
-    margin-bottom: 30px;
-    font-size: 38px; 
-  }
+    h2 {
+      margin-bottom: 30px;
+      font-size: 38px;
+    }
 
-  select, input {
-    margin: 16px 0;
-    font-size: 26px;
-    padding: 18px 24px;
-    width: 90%;
-    max-width: 420px;
-    border-radius: 10px;
-    border: 2px solid #ccc;
-  }
+    select, input {
+      margin: 16px 0;
+      font-size: 26px;
+      padding: 18px 24px;
+      width: 90%;
+      max-width: 420px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+    }
 
-  .member-score {
-    margin-bottom: 22px;
-  }
+    .member-score {
+      margin-bottom: 22px;
+    }
 
-  button {
-    font-size: 28px; 
-    padding: 20px 40px;
-    margin-top: 30px;
-    cursor: pointer;
-    border-radius: 12px;
-    background-color: #5271ff;
-    color: white;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
+    button {
+      font-size: 28px;
+      padding: 20px 40px;
+      margin-top: 30px;
+      cursor: pointer;
+      border-radius: 12px;
+      background-color: #5271ff;
+      color: white;
+      border: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-  button:hover {
-    background-color: #4059d0;
-  }
-</style>
+    button:hover {
+      background-color: #4059d0;
+    }
+  </style>
 </head>
 <body>
   <h2>환경생태학 조원 기여도 평가</h2>
@@ -65,8 +65,6 @@
   <select id="teamSelect" onchange="loadMembers()">
     <option value="">-- 조 선택 --</option>
   </select>
-
-  <br/>
 
   <label for="myName">이름: </label>
   <select id="myName" onchange="loadTeammates()" disabled>
@@ -159,25 +157,15 @@
         scores[input.name] = Number(input.value);
       }
 
-fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    team: '1조',
-    name: '박서진',
-    scores: {
-      '권지민': 90,
-      '홍성현': 85,
-      '김민형': 80,
-      '전요섭': 95
+      fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ team: team, name: myName, scores: scores })
+      })
+      .then(res => res.text())
+      .then(text => alert('✅ 제출 완료: ' + text))
+      .catch(err => alert('❌ 전송 오류: ' + err));
     }
-  })
-})
-.then(res => res.text())
-.then(text => alert(text))
-.catch(err => alert('전송 오류: ' + err));
   </script>
 </body>
 </html>
