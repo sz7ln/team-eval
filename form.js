@@ -1,13 +1,10 @@
-//
 const teams = {
-      "1조": ["박서진", "권지민", "홍성현", "김민형", "전요섭"],
-      "2조": ["ㅂㅂㅂ", "ㅈㅈㅈ", "ㄷㄷㄷ", "ㄱㄱㄱ"],
-      "3조": ["ㅅㅅㅅ", "ㅁㅁㅁ", "ㄴㄴㄴ", "ㅇㅇㅇ"]
-      "4조": ["ㅋㅋㅋ", "ㄹㄹㄹ", "ㅎㅎㅎ", "ㅌㅌㅌ"]
-  //
+  "1조": ["박서진", "권지민", "홍성현", "김민형", "전요섭"],
+  "2조": ["ㅂㅂㅂ", "ㅈㅈㅈ", "ㄷㄷㄷ", "ㄱㄱㄱ"],
+  "3조": ["ㅅㅅㅅ", "ㅁㅁㅁ", "ㄴㄴㄴ", "ㅇㅇㅇ"],
+  "4조": ["ㅋㅋㅋ", "ㄹㄹㄹ", "ㅎㅎㅎ", "ㅌㅌㅌ"]
 };
 
-//
 function loadMembers() {
   const teamSelect = document.getElementById('teamSelect');
   const myNameSelect = document.getElementById('myName');
@@ -31,7 +28,6 @@ function loadMembers() {
   myNameSelect.disabled = false;
 }
 
-//
 function loadTeammates() {
   const myName = document.getElementById('myName').value;
   const selectedTeam = document.getElementById('teamSelect').value;
@@ -40,7 +36,6 @@ function loadTeammates() {
   container.innerHTML = '';
   if (!myName) return;
 
-  //
   const teammates = teams[selectedTeam].filter(name => name !== myName);
 
   teammates.forEach(teammate => {
@@ -63,16 +58,15 @@ function loadTeammates() {
   });
 }
 
-// 
 function submitScores() {
   const team = document.getElementById('teamSelect').value;
   const myName = document.getElementById('myName').value;
   if (!team) {
-    alert('조');
+    alert('조를 선택해 주세요.');
     return;
   }
   if (!myName) {
-    alert('이름');
+    alert('이름을 선택해 주세요.');
     return;
   }
 
@@ -80,14 +74,13 @@ function submitScores() {
   let scores = {};
   for (let input of inputs) {
     if (!input.value) {
-      alert('기여도 점수');
+      alert('모든 조원 기여도 점수를 입력해 주세요.');
       return;
     }
     scores[input.name] = Number(input.value);
   }
 
-  // fetch 사용 시 URL 수정 필요
-  fetch('https://script.google.com/macros/s/네_웹앱_배포_URL/exec', {
+  fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyMssut2pELqpBi27vLcebJ0bY2ya0k4xS7FCJ1GX0zBmGoRX6KIzP4JJZfirmUDos-/exec/exec', {
     method: 'POST',
     body: JSON.stringify({ team: team, name: myName, scores: scores }),
     headers: { 'Content-Type': 'application/json' }
