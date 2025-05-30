@@ -161,15 +161,23 @@
 
 fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
   method: 'POST',
-  body: JSON.stringify({ team, name: myName, scores }),
   headers: {
     'Content-Type': 'application/json'
-  }
-})
-      .then(res => res.text())
-      .then(text => alert('제출 완료: ' + text))
-      .catch(err => alert('전송 오류: ' + err));
+  },
+  body: JSON.stringify({
+    team: '1조',
+    name: '박서진',
+    scores: {
+      '권지민': 90,
+      '홍성현': 85,
+      '김민형': 80,
+      '전요섭': 95
     }
+  })
+})
+.then(res => res.text())
+.then(text => alert(text))
+.catch(err => alert('전송 오류: ' + err));
   </script>
 </body>
 </html>
