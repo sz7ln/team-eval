@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>조원 기여도 평가</title>
-  <style>
+ <style>
   * {
     box-sizing: border-box;
   }
@@ -12,38 +12,49 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    font-size: 18px;
+    font-size: 26px; /* 🔥 전체 기본 글씨 크기 업 */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* 🔥 수직 중앙 정렬 */
-    height: 100vh;           /* 🔥 뷰포트 높이만큼 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    height: 100vh;           /* 뷰포트 높이만큼 */
     text-align: center;
     background-color: #f8f8f8;
   }
 
   h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-bottom: 30px;
+    font-size: 38px; /* 제목 더 크고 눈에 띄게 */
   }
 
   select, input {
-    margin: 10px 0;
-    font-size: 18px;
-    padding: 10px;
-    width: 80%;
-    max-width: 300px;
+    margin: 16px 0;
+    font-size: 26px; /* 🔥 입력창 글씨도 업 */
+    padding: 18px 24px;
+    width: 90%;
+    max-width: 420px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
   }
 
   .member-score {
-    margin-bottom: 15px;
+    margin-bottom: 22px;
   }
 
   button {
-    font-size: 18px;
-    padding: 10px 20px;
-    margin-top: 20px;
+    font-size: 28px; /* 버튼 글씨 큼직하게 */
+    padding: 20px 40px;
+    margin-top: 30px;
     cursor: pointer;
+    border-radius: 12px;
+    background-color: #5271ff;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  button:hover {
+    background-color: #4059d0;
   }
 </style>
 </head>
