@@ -80,7 +80,7 @@ function submitScores() {
     scores[input.name] = Number(input.value);
   }
 
-  fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwaCOZTm4PmRHfhc3rSJdyK_LcMnBxJEB7dyi9dmq9SvTzV-A24PZ0sUdb1nxtTAO22/exec', {
+  fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
     method: 'POST',
     body: JSON.stringify({ team: team, name: myName, scores: scores }),
     headers: { 'Content-Type': 'application/json' }
