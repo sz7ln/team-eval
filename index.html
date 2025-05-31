@@ -21,8 +21,13 @@
       background-color: #f8f8f8;
     }
     h2 {
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       font-size: 38px;
+    }
+    p.subtext {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 30px;
     }
     select, input {
       margin: 16px 0;
@@ -54,6 +59,7 @@
 </head>
 <body>
   <h2>환경생태학 조원 기여도 평가</h2>
+  <p class="subtext">최대점수 100점, 객관적 평가 부탁드립니다.</p>
 
   <label for="teamSelect">조: </label>
   <select id="teamSelect" onchange="loadMembers()">
@@ -153,7 +159,6 @@
 
       fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
         method: 'POST',
-        // Content-Type 헤더 뺌 (CORS preflight 회피)
         body: JSON.stringify({ team: team, name: myName, scores: scores })
       })
       .then(res => res.text())
