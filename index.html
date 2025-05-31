@@ -74,10 +74,10 @@
   <div id="scoreInputs"></div>
 
   <p style="color: #cc0000; font-size: 20px; margin-top: 10px;">
-  제출까지 시간이 소요됩니다. '제출 완료'가 뜰 때까지 창을 닫지 마세요.
+    제출까지 시간이 소요됩니다. '제출 완료'가 뜰 때까지 창을 닫지 마세요.
   </p>
 
-  <button onclick="submitScores()">제출</button>
+  <button id="submitBtn" onclick="submitScores()">제출</button>
 
   <script>
     const teams = {
@@ -127,7 +127,7 @@
 
       if (!myName) return;
 
-      const teammates = teams[team]; // 본인 포함 전체 조원
+      const teammates = teams[team];
 
       teammates.forEach(member => {
         const div = document.createElement("div");
@@ -143,6 +143,8 @@
     function submitScores() {
       const team = document.getElementById('teamSelect').value;
       const myName = document.getElementById('myName').value;
+      const submitBtn = document.getElementById('submitBtn');
+
       if (!team) {
         alert('조를 선택해 주세요');
         return;
@@ -162,13 +164,25 @@
         scores[input.name] = Number(input.value);
       }
 
+      submitBtn.disabled = true;
+      submitBtn.textContent = "제출 중...";
+
       fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ team: team, name: myName, scores: scores })
       })
       .then(res => res.text())
-      .then(text => alert('✅ 제출 완료: ' + text))
-      .catch(err => alert('❌ 전송 오류: ' + err));
+      .then(text => {
+        alert('✅ 제출 완료: ' + text);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "제출";
+      })
+      .catch(err => {
+        alert('❌ 전송 오류: ' + err);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "제출";
+      });
     }
   </script>
 </body>
