@@ -51,9 +51,14 @@
       color: white;
       border: none;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
     }
-    button:hover {
+    button:hover:enabled {
       background-color: #4059d0;
+    }
+    button:disabled {
+      cursor: not-allowed;
+      background-color: #9999cc;
     }
   </style>
 </head>
@@ -74,17 +79,20 @@
   <div id="scoreInputs"></div>
 
   <p style="color: #cc0000; font-size: 20px; margin-top: 10px;">
-  제출까지 시간이 소요됩니다. '제출 완료'가 뜰 때까지 창을 닫지 마세요.
+    제출까지 시간이 소요됩니다. '제출 완료'가 뜰 때까지 창을 닫지 마세요.
   </p>
 
   <button onclick="submitScores()">제출</button>
 
   <script>
     const teams = {
-      "1조": ["박서진", "권지민", "홍성현", "김민형", "전요섭"],
-      "2조": ["ㅂㅂㅂ", "ㅈㅈㅈ", "ㄷㄷㄷ", "ㄱㄱㄱ"],
-      "3조": ["ㅅㅅㅅ", "ㅁㅁㅁ", "ㄴㄴㄴ", "ㅇㅇㅇ"],
-      "4조": ["ㅋㅋㅋ", "ㄹㄹㄹ", "ㅎㅎㅎ", "ㅌㅌㅌ"]
+      "1조": ["권지민", "김민형", "박서진", "전요섭", "홍성현"],
+      "2조": ["곽선아", "송윤석", "안수정", "이유림"],
+      "3조": ["김유정", "이우주", "이해빈", "임하은"],
+      "4조": ["배병진", "이재준", "이정훈", "유지환"],
+      "5조": ["박진모", "지민준", "김주안", "신회준", "곽민석"],
+      "6조": ["김정식", "박승원", "신소율", "민채영"],
+      "7조": ["김인하", "박민호", "박유영", "오성태", "이소율"],
     };
 
     window.onload = function() {
@@ -127,20 +135,23 @@
 
       if (!myName) return;
 
-      const teammates = teams[team]; // 본인 포함 전체 조원
+      const teammates = teams[team];
 
       teammates.forEach(member => {
         const div = document.createElement("div");
         div.className = "member-score";
-        div.innerHTML = 
+        div.innerHTML = `
           <label>${member}: </label>
           <input type="number" name="${member}" min="0" max="100" required>
-        ;
+        `;
         container.appendChild(div);
       });
     }
 
     function submitScores() {
+      const btn = document.querySelector('button');
+      if (btn.disabled) return;
+
       const team = document.getElementById('teamSelect').value;
       const myName = document.getElementById('myName').value;
       if (!team) {
@@ -162,13 +173,27 @@
         scores[input.name] = Number(input.value);
       }
 
-      fetch('https://script.google.com/macros/s/AKfycby043TCazNzSEdo5XcVqiG2MQVpsfDJmKcTl3gOFJJw1_MMkws6VbHNDK7_9TO1r-Q/exec', {
+      btn.disabled = true;
+      btn.textContent = '제출 중...';
+
+      fetch('https://script.google.com/macros/s/AKfycbxMF0w82UD_sriJhl2kiOew_BDcYSnURFMbTlfHwgnKHt0usVZ5-wfL-YG3MNsBxYU9Gg/exec', {
         method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ team: team, name: myName, scores: scores })
       })
-      .then(res => res.text())
-      .then(text => alert('✅ 제출 완료: ' + text))
-      .catch(err => alert('❌ 전송 오류: ' + err));
+      .then(() => {
+        alert('✅ 제출 완료');
+        btn.disabled = false;
+        btn.textContent = '제출';
+      })
+      .catch(err => {
+        alert('❌ 전송 오류: ' + err);
+        btn.disabled = false;
+        btn.textContent = '제출';
+      });
     }
   </script>
 </body>
