@@ -165,12 +165,21 @@
 
       const inputs = document.querySelectorAll('#scoreInputs input');
       let scores = {};
+      let totalScore = 0;
+
       for (let input of inputs) {
         if (!input.value) {
           alert('모든 조원 기여도 점수를 입력해 주세요');
           return;
         }
-        scores[input.name] = Number(input.value);
+        const score = Number(input.value);
+        scores[input.name] = score;
+        totalScore += score;
+      }
+
+      if (totalScore > 100) {
+        alert('총합이 100점을 넘을 수 없습니다. 다시 확인해 주세요.');
+        return;
       }
 
       btn.disabled = true;
