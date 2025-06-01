@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <title>환경생태학 조원 기여도 평가</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 0;
@@ -20,15 +18,8 @@
       text-align: center;
       background-color: #f8f8f8;
     }
-    h2 {
-      margin-bottom: 10px;
-      font-size: 38px;
-    }
-    .subtext {
-      font-size: 20px;
-      color: #555;
-      margin-bottom: 30px;
-    }
+    h2 { margin-bottom: 10px; font-size: 38px; }
+    .subtext { font-size: 20px; color: #555; margin-bottom: 30px; }
     select, input {
       margin: 16px 0;
       font-size: 26px;
@@ -38,9 +29,7 @@
       border-radius: 10px;
       border: 2px solid #ccc;
     }
-    .member-score {
-      margin-bottom: 22px;
-    }
+    .member-score { margin-bottom: 22px; }
     button {
       font-size: 28px;
       padding: 20px 40px;
@@ -53,13 +42,8 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       transition: background-color 0.3s;
     }
-    button:hover:enabled {
-      background-color: #4059d0;
-    }
-    button:disabled {
-      cursor: not-allowed;
-      background-color: #9999cc;
-    }
+    button:hover:enabled { background-color: #4059d0; }
+    button:disabled { cursor: not-allowed; background-color: #9999cc; }
   </style>
 </head>
 <body>
@@ -165,20 +149,24 @@
 
       const inputs = document.querySelectorAll('#scoreInputs input');
       let scores = {};
-      let totalScore = 0;
+      let total = 0;
 
       for (let input of inputs) {
         if (!input.value) {
           alert('모든 조원 기여도 점수를 입력해 주세요');
           return;
         }
-        const score = Number(input.value);
-        scores[input.name] = score;
-        totalScore += score;
+        let value = Number(input.value);
+        if (value < 0 || value > 100) {
+          alert(`${input.name}의 점수는 0~100 사이여야 합니다`);
+          return;
+        }
+        scores[input.name] = value;
+        total += value;
       }
 
-      if (totalScore > 100) {
-        alert('총합이 100점을 넘을 수 없습니다. 다시 확인해 주세요.');
+      if (total > 100) {
+        alert(`총합이 ${total}점입니다. 100점을 초과할 수 없습니다.`);
         return;
       }
 
